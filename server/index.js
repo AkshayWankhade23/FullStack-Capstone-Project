@@ -9,7 +9,9 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get("/health", (req, res) => {
+app.use('/', require('./routes/authRoutes'))
+
+app.get('/', (req, res) => {
   res.status(200).json({
     status: "Success",
     message: "All Good!!",
