@@ -4,9 +4,10 @@ const cors = require("cors");
 const {
   registerUser,
   loginUser,
+  jobUser,
   getProfile,
 } = require("../controllers/authController");
-
+// const job = require("../models/Job");
 
 //Middleware
 router.use(
@@ -18,6 +19,7 @@ router.use(
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+router.post("/job", jobUser);
 router.get("/profile", getProfile);
 
 module.exports = router;
