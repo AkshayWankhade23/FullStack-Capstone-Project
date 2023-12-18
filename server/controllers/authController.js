@@ -3,6 +3,12 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const Job = require("../models/jobModel");
 
+
+
+const test = (req, res) => {
+  res.json("test is working");
+};
+
 // Error handler middleware
 const errorHandler = (res, error) => {
   console.log(error);
@@ -11,7 +17,7 @@ const errorHandler = (res, error) => {
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, phone, password } = req.body;
+    const { name, email, mobile, password } = req.body;
 
     //check if name was entered
     if (!name) {
@@ -26,10 +32,10 @@ const registerUser = async (req, res) => {
         error: "Email is already exist",
       });
     }
-    //check phone number
-    if (!phone) {
+    //check mobile number
+    if (!mobile) {
       return res.json({
-        error: "Phone number is required and it should contain 10 digits",
+        error: "Mobile number is required and it should contain 10 digits",
       });
     }
     //check if password is correct
@@ -44,7 +50,7 @@ const registerUser = async (req, res) => {
     const user = await User.create({
       name,
       email,
-      phone,
+      mobile,
       password: hashedPassword,
     });
 
@@ -98,28 +104,49 @@ const loginUser = async (req, res) => {
     // const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET);
 
     // Return Success response
-    res.json({ success: true, token, recruiterName: user.name, user:email });
+    res.json({ success: true, recruiterName: user.name, user:email });
   } catch (error) {
     errorHandler(res, error);
   }
 };
 
 // For Job Schema
-const jobUser = async(req, res) => {
-  try {
-    const job = await Job.create(req.body);
-    res.status(201).json({
-      status: "Success",
-      data: job,
+const jobUser = async (req, res) => {
+  const { token } = req.cookies;
+
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, {}, async (err, user) => {
+      if (err) {
+        res.status(401).json({
+          status: "Error",
+          message: "Token verification failed",
+        });
+        return;
+      }
+
+      try {
+        // Create and save the job
+        const job = await Job.create(req.body);
+        await job.save();
+
+        res.status(201).json({
+          status: "Success",
+          data: job,
+        });
+      } catch (error) {
+        res.status(400).json({
+          status: "Error",
+          message: error.message,
+        });
+      }
     });
-    job.save();
-  } catch (error) {
-    res.status(400).json({
+  } else {
+    res.status(401).json({
       status: "Error",
-      message: error.message,
+      message: "Token not provided",
     });
   }
-}
+};
 
 const getProfile = (req, res) => {
   const { token } = req.cookies;
@@ -134,6 +161,7 @@ const getProfile = (req, res) => {
 };
 
 module.exports = {
+  test,
   registerUser,
   loginUser,
   jobUser,

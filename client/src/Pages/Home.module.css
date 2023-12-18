@@ -1,0 +1,20 @@
+.btn {
+  width: 7.0625rem;
+  height: 2.875rem;
+  flex-shrink: 0;
+  border-radius: 0.4375rem;
+  border: 2px solid #fff;
+  background: #ff6b6b;
+  margin: 0rem 0rem 0rem 70rem;
+  color: #fff;
+  text-align: center;
+  font-family: DM Sans;
+  font-size: 1.4375rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 144.023%; /* 2.07031rem */
+}
+.btn:hover {
+  background: #fff;
+  color: #ff6b6b;
+}
