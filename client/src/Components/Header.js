@@ -6,7 +6,7 @@ export default function Header() {
   const location = useLocation();
   return (
     <div className={style.container}>
-      <span> Jobfinder </span>
+      <div className={style.job}> Jobfinder </div>
       {location.pathname === "/" && (
         <div>
           <Link to="/login" className={ [style.btn, style.login].join(' ') }>

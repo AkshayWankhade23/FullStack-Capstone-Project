@@ -5,23 +5,23 @@
   background: #ed5353;
 }
 
-.container span {
+.job {
   color: #fff;
   font-size: 1.875rem;
   font-style: normal;
   font-weight: 700;
   line-height: 144.023%;
-  margin: 3vh 0rem 0rem 4.94vw;
+  margin: 2rem 0rem -2rem 4.94rem;
+  position: absolute;
 }
 
 .btn {
-    text-decoration: none;
     width: 7.0625rem;
     height: 2.875rem;
     flex-shrink: 0;
     border-radius: 0.4375rem;
     border: 2px solid #fff;
-    background: #ff6b6b;
+    background: #ed5353;
     color: #fff;
     text-align: center;
     font-family: DM Sans;
@@ -29,6 +29,9 @@
     font-style: normal;
     font-weight: 500;
     line-height: 144.023%; /* 2.07031rem */
+    padding: 0.01rem 0.2rem;
+    margin-top: 2rem;
+    position: absolute;
   }
   .btn:hover {
     background: #fff;
@@ -36,9 +39,11 @@
   }
 
   .login{
-    margin-left: 70rem;
+    text-decoration: none;
+    margin-left: 75vw;
   }
 
   .register{
-    margin-left: 2rem;
+    text-decoration: none;
+    margin-left: 85vw;
   }

@@ -1,20 +1,100 @@
-.btn {
-  width: 7.0625rem;
-  height: 2.875rem;
+.container {
+  width: 100vh;
+}
+
+.finder {
+  width: 80.5625vw;
+  height: 30.9375vh;
   flex-shrink: 0;
-  border-radius: 0.4375rem;
-  border: 2px solid #fff;
-  background: #ff6b6b;
-  margin: 0rem 0rem 0rem 70rem;
-  color: #fff;
-  text-align: center;
+  background: #fff;
+  box-shadow: 0px 0px 22px 4px rgba(255, 32, 32, 0.25);
+  margin: 2rem 0rem 0rem 7rem;
+}
+
+.input_skills {
+  width: 57.125vw;
+  height: 7.875vh;
+  flex-shrink: 0;
+  border-radius: 0.5625rem;
+  border: 1.8px solid #e3e3e3;
+  background: #fff;
+  margin: 2rem 0rem 0rem 4rem;
+  position: absolute;
+}
+
+.input_skills input {
+  width: 45.125vw;
+  height: 7.875vh;
+  color: #9c9c9c;
+  font-family: DM Sans;
+  font-size: 1.4375rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 144.023%; /* 2.07031rem */
+  border: none;
+  margin-left: 1rem;
+}
+
+.finder img {
+  margin-left: 1.5rem;
+  /* margin-top: 1rem; */
+  position: relative;
+  color: #9c9c9c;
   font-family: DM Sans;
   font-size: 1.4375rem;
   font-style: normal;
   font-weight: 500;
   line-height: 144.023%; /* 2.07031rem */
 }
-.btn:hover {
+
+.skills {
+  width: 8.9375rem;
+  height: 2.875rem;
+  flex-shrink: 0;
+  border-radius: 0.5625rem;
+  border: 2px solid #cecece;
   background: #fff;
-  color: #ff6b6b;
+  color: #9c9c9c;
+  font-family: Roboto;
+  font-size: 1.0625rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  cursor: pointer;
+  margin: 2rem 0rem 0rem 4rem;
+}
+
+.add_job {
+  position: relative;
+  cursor: pointer;
+  width: 9.375rem;
+  height: 2.8rem;
+  flex-shrink: 0;
+  border-radius: 0.50431rem;
+  background: #ed5353;
+  border: none;
+  color: #fff;
+  font-family: Roboto;
+  font-size: 1.40088rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-left: 65vw;
+  margin-top: 2.4rem;
+}
+
+.clear {
+  cursor: pointer;
+  width: 6.0375rem;
+  height: 2.50606rem;
+  border-radius: 0.50431rem;
+  border: none;
+  color: #ed5353;
+  text-align: center;
+  font-family: DM Sans;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 144.023%; /* 1.80031rem */
+  margin-left: 1rem;
 }
