@@ -18,21 +18,22 @@ export default function Register() {
     e.preventDefault();
     const { name, email, mobile, password } = data;
     try {
-      const { data } = await axios.post("/register", {
+      const response = await axios.post("/register", {
         name,
         email,
         mobile,
         password,
       });
-      if (data.error) {
-        toast.error(data.error);
+      if (response.data.error) {
+        toast.error(response.data.error);
       } else {
         setData({});
-        toast.success("Registerd Successfully! Welcome..");
-        navigate("/login");
+        toast.success("Registered Successfully! Welcome aboard.");
+        navigate("/");
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error during registration:", error);
+      toast.error("An unexpected error occurred. Please try again later.");
     }
   };
 

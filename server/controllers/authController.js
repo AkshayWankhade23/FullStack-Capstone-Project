@@ -17,33 +17,31 @@ const errorHandler = (res, error) => {
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, mobile, password } = req.body;
 
     //check if name was entered
-    if (!name) {
-      return res.json({
-        error: "Name is required",
+    const { name, email, mobile, password } = req.body;
+
+    if (!name || !email || !mobile || !password) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: "Email is already in use" });
+    }
+
+    if (mobile.length !== 10) {
+      return res.status(400).json({
+        error: "Mobile number is required and should contain 10 digits",
       });
     }
-    //check email
-    const exist = await User.findOne({ email });
-    if (exist) {
-      return res.json({
-        error: "Email is already exist",
+
+    if (password.length < 6) {
+      return res.status(400).json({
+        error: "Password should be at least 6 characters long",
       });
     }
-    //check mobile number
-    if (!mobile) {
-      return res.json({
-        error: "Mobile number is required and it should contain 10 digits",
-      });
-    }
-    //check if password is correct
-    if (!password || password.length < 6) {
-      return res.json({
-        error: "password is required and should be atleast 6 characters long",
-      });
-    }
+
 
     const hashedPassword = await hashPassword(password);
     //create user in database
@@ -80,31 +78,26 @@ const loginUser = async (req, res) => {
     //check if password match
     const match = await comparePassword(password, user.password);
     if (match) {
-      jwt.sign(
+      // Generate JWT token
+      const token = jwt.sign(
         {
           email: user.email,
           id: user._id,
           name: user.name,
         },
-        process.env.JWT_SECRET,
-        {},
-        (err, token) => {
-          if (err) throw err;
-          res.cookie("token", token).json(user); // wrong
-        }
+        process.env.JWT_SECRET_KEY
       );
-    }
-    if (!match) {
-      res.status(401).json({
-        error: "Password does not match",
+
+      // Set the token in the response cookie
+      res.cookie('token', token);
+
+      // Return Success response
+      return res.json({ success: true, recruiterName: user.name, user: email });
+    } else {
+      return res.status(401).json({
+        error: 'Password does not match',
       });
     }
-
-    // Generate JWT token
-    // const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET);
-
-    // Return Success response
-    res.json({ success: true, recruiterName: user.name, user:email });
   } catch (error) {
     errorHandler(res, error);
   }
@@ -115,7 +108,7 @@ const jobUser = async (req, res) => {
   const { token } = req.cookies;
 
   if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, {}, async (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET_KEY, {}, async (err, user) => {
       if (err) {
         res.status(401).json({
           status: "Error",
@@ -151,14 +144,20 @@ const jobUser = async (req, res) => {
 const getProfile = (req, res) => {
   const { token } = req.cookies;
   if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
-      if (err) throw err;
+    jwt.verify(token, process.env.JWT_SECRET_KEY, {}, (err, user) => {
+      if (err) {
+        return res.status(401).json({
+          error: "Token verification failed",
+        });
+      }
+
       res.json(user);
     });
   } else {
     res.json(null);
   }
 };
+
 
 module.exports = {
   test,

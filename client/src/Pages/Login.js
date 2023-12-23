@@ -15,18 +15,20 @@ export default function Login() {
     e.preventDefault();
     const { email, password } = data;
     try {
-      const { data } = await axios.post("/login", {
+      const response = await axios.post("/login", {
         email,
         password,
       });
-      if (data.error) {
-        toast.error(data.error);
+      if (response.data.error) {
+        toast.error("Login failed. Please check your credentials and try again.");
       } else {
-        setData({});
-        navigate("/home");
+        toast.success("Login successful!");
+        setData({ email: "", password: "" }); // Clear form data
+        navigate("/");
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error during login:", error);
+      toast.error("An unexpected error occurred. Please try again later.");
     }
   };
   return (
@@ -56,7 +58,7 @@ export default function Login() {
           </button>{" "}
           <br />
           <span className="span_2">Don’t have an account?</span>
-          <Link className="signIn" to="/">
+          <Link className="signIn" to="/register">
             Sign Up
           </Link>
         </form>

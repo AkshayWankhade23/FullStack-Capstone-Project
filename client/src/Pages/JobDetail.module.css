@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.left {
+  width: 60vw;
+  height: 100vh;
+}
+
+.left label {
+  color: #000;
+  font-family: DM Sans;
+  font-size: 1.45844rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.left input {
+  width: 27.38956rem;
+  height: 2.41675rem;
+  flex-shrink: 0;
+  border-radius: 0.28769rem;
+  border: 1.841px solid #c2c2c2;
+  background: #fff;
+  color: #adadad;
+  font-family: DM Sans;
+  font-size: 0.97819rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.right {
+  width: 40vw;
+  height: 100vh;
+}
+
+.right img {
+  width: 40vw;
+  height: 100vh;
+}

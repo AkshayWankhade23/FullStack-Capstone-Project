@@ -5,7 +5,6 @@ import Login from "./Pages/Login";
 import Home from "./Pages/Home";
 import { UserContextProvider } from "./Context/userContext";
 import { Toaster } from "react-hot-toast";
-import Dashboard from "./Pages/Dashboard";
 import axios from "axios";
 
 axios.defaults.baseURL = 'http://localhost:4000'
@@ -20,7 +19,6 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </UserContextProvider>
     
